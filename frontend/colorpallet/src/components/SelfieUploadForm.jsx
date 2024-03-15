@@ -1,15 +1,42 @@
 import React, { useState } from 'react';
+import { Button, Card, CardMedia, makeStyles } from '@material-ui/core';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-function SelfieUploadForm() {
+const useStyles = makeStyles((theme) => ({
+  form: {
+    margin: theme.spacing(1),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  input: {
+    display: 'none',
+  },
+  previewCard: {
+    marginTop: theme.spacing(2),
+    width: '100%', // Adjust based on your needs
+  },
+  previewMedia: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9 Aspect Ratio
+  },
+  uploadButton: {
+    margin: theme.spacing(2),
+  },
+}));
+const SelfieUploadForm = ({ onImageSelected }) =>{
     const [results, setResults] = useState('');
     const [preview, setPreview] = useState(null);
-
+    const classes = useStyles();
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
           const reader = new FileReader();
           reader.onloadend = () => {
             setPreview(reader.result);
+            onImageSelected()
           };
           reader.readAsDataURL(file);
         } else {
@@ -47,16 +74,41 @@ function SelfieUploadForm() {
     };
 
     return (
-        <div>
-            <form id="upload-form" onSubmit={handleSubmit} onChange={handleImageChange}>
-                <input type="file" id="selfie" name="selfie" accept="image/*" />
-                <button type="submit">Analyze Selfie</button>
-            </form>
-            {preview && (
-                 <img src={preview} alt="Preview" style={{ width: '100%', marginTop: '20px' }} />
-            )}
-            {/* <div id="results">{results}</div> */}
-        </div>
+    <div>
+      <form id="upload-form" className={classes.form} onSubmit={handleSubmit}>
+        <input
+          accept="image/*"
+          className={classes.input}
+          id="selfie"
+          type="file"
+          onChange={handleImageChange}
+        />
+        {!preview&&
+            <>
+                <h2>Step One</h2>
+                <label htmlFor="selfie">
+                <Button variant="contained" color="primary" component="span" className={classes.uploadButton}>
+                    Upload Image
+                </Button>
+                </label>
+            </>
+        }
+      </form>
+      <Container maxWidth="sm">
+        <Box 
+          display="flex" 
+          justifyContent="center" 
+          alignItems="center" 
+          minHeight="60vh" // Adjust based on your needs
+          sx={{width: '100%'}} // Ensures the Box fills its Container
+        >
+          {preview && (
+            <img src={preview} alt="Preview" style={{ maxWidth: '100%', height: 'auto', marginTop: '20px' }} />
+          )}
+        </Box>
+      </Container>
+
+    </div>
     );
 }
 
