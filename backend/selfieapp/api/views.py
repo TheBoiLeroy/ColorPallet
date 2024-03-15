@@ -81,7 +81,7 @@ class HexColorViewSet(viewsets.ModelViewSet):
             return {"error": str(e)}
 
     def generate_prompt_from_colors(self, color_data):
-        prompt = f"hey my eye color is {color_data['eyeColor']} my skin tone is {color_data['skinColor']} and my hair is{color_data['hairColor']}. Which skin tone color palette am I? In terms of sprint, winter, summer, fall. "
+        prompt = f"hey my eye color is {color_data['eyeColor']} my skin tone is {color_data['skinColor']} and my hair is{color_data['hairColor']}. Which skin tone color palette am I? In terms of cool/warm -> sprint, winter, summer,and fall. be as descriptive as possible "
         return prompt
     # hey my skin tone is {$hexSkinColor} my eyes are {$hexEyes} and my hair is {$hexHairColor}.
     # // Which skin tone color palette am I? In terms of sprint, winter, summer, fall. "

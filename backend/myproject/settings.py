@@ -25,13 +25,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-4zc8rf7q2ljh0*9heq5maj01tp%+p)r0or3qoymqi1oymz299w'
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-SECURE_HSTS_SECONDS = 3600 # Example: 1 hour
+SECURE_HSTS_SECONDS = 1800
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # SECURITY WARNING: don't run with True in production!
 CORS_ALLOW_ALL_ORIGINS = True 
